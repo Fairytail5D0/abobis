@@ -3,217 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>M. Voronov — Photography</title>
+<title>D. Miroslav — Digital Art Collection</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0e0e0e;--surface:#181818;--border:#2a2a2a;
-  --text:#f0f0f0;--muted:#888;--accent:#c8a96e
+  --bg:#0a0a0a;--surface:#141414;--border:#222;
+  --text:#ececec;--muted:#666;--accent:#a78bfa
 }
 body{background:var(--bg);color:var(--text);
-     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
      min-height:100vh}
 
-/* ── nav ── */
+/* nav */
 nav{
   position:sticky;top:0;z-index:99;
-  background:rgba(14,14,14,.92);backdrop-filter:blur(12px);
+  background:rgba(10,10,10,.93);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 40px;height:60px
+  padding:0 40px;height:58px
 }
-.logo{font-size:17px;font-weight:700;letter-spacing:.5px;color:var(--text)}
+.logo{font-size:16px;font-weight:700;letter-spacing:.4px;color:var(--text)}
 .logo span{color:var(--accent)}
-.nav-links{display:flex;gap:28px}
-.nav-links a{
-  font-size:13px;color:var(--muted);text-decoration:none;
-  letter-spacing:.3px;transition:color .2s
-}
+.nav-links{display:flex;gap:26px}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;
+             letter-spacing:.3px;transition:color .2s}
 .nav-links a:hover,.nav-links a.active{color:var(--text)}
 
-/* ── hero ── */
-.hero{
-  padding:64px 40px 40px;
-  max-width:1100px;margin:0 auto
-}
-.hero h1{
-  font-size:clamp(28px,4vw,44px);font-weight:300;
-  letter-spacing:-1px;color:var(--text);margin-bottom:10px
-}
-.hero h1 strong{font-weight:700;color:var(--accent)}
-.hero p{font-size:14px;color:var(--muted);line-height:1.7;max-width:480px}
+/* hero */
+.hero{padding:60px 40px 36px;max-width:1140px;margin:0 auto}
+.hero h1{font-size:clamp(26px,4vw,42px);font-weight:300;
+         letter-spacing:-1px;margin-bottom:8px}
+.hero h1 em{font-style:normal;font-weight:700;color:var(--accent)}
+.hero p{font-size:13.5px;color:var(--muted);line-height:1.75;max-width:460px}
 
-/* ── filter tabs ── */
-.filters{
-  max-width:1100px;margin:32px auto 0;padding:0 40px;
-  display:flex;gap:8px;flex-wrap:wrap
-}
-.filter-btn{
-  background:none;border:1px solid var(--border);border-radius:20px;
-  padding:6px 16px;font-size:12px;color:var(--muted);cursor:pointer;
-  transition:all .2s;letter-spacing:.3px
-}
-.filter-btn:hover,.filter-btn.active{
-  background:var(--accent);border-color:var(--accent);color:#000;font-weight:600
-}
+/* filters */
+.filters{max-width:1140px;margin:28px auto 0;padding:0 40px;
+         display:flex;gap:8px;flex-wrap:wrap}
+.fb{background:none;border:1px solid var(--border);border-radius:20px;
+    padding:5px 15px;font-size:12px;color:var(--muted);cursor:pointer;
+    transition:all .18s;letter-spacing:.3px}
+.fb:hover,.fb.on{background:var(--accent);border-color:var(--accent);
+                  color:#0a0a0a;font-weight:700}
 
-/* ── grid ── */
-.grid{
-  max-width:1100px;margin:28px auto 0;padding:0 40px 60px;
-  columns:3;column-gap:14px
-}
-@media(max-width:900px){.grid{columns:2}}
-@media(max-width:560px){.grid{columns:1;padding:0 16px 40px}}
+/* grid */
+.grid{max-width:1140px;margin:24px auto 0;padding:0 40px 64px;
+      columns:3;column-gap:12px}
+@media(max-width:860px){.grid{columns:2}}
+@media(max-width:520px){.grid{columns:1;padding:0 14px 40px}}
 
-.photo-card{
-  break-inside:avoid;margin-bottom:14px;
-  position:relative;overflow:hidden;border-radius:6px;
-  cursor:pointer;
-}
-.photo-card img{
-  width:100%;display:block;
-  transition:transform .4s ease;
-  filter:brightness(.92)
-}
-.photo-card:hover img{
-  transform:scale(1.04);filter:brightness(1)
-}
-.photo-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);
-  opacity:0;transition:opacity .3s
-}
-.photo-card:hover .photo-overlay{opacity:1}
-.photo-meta{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:16px 14px 12px;
-  transform:translateY(8px);transition:transform .3s;
-}
-.photo-card:hover .photo-meta{transform:translateY(0)}
-.photo-title{font-size:12px;font-weight:600;color:#fff;letter-spacing:.3px}
-.photo-loc{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
+.card{break-inside:avoid;margin-bottom:12px;
+      position:relative;overflow:hidden;border-radius:7px;cursor:pointer}
+.card img{width:100%;display:block;transition:transform .45s ease;
+          filter:brightness(.9)}
+.card:hover img{transform:scale(1.05);filter:brightness(1)}
+.ov{position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 50%);
+    opacity:0;transition:opacity .28s}
+.card:hover .ov{opacity:1}
+.meta{position:absolute;bottom:0;left:0;right:0;padding:14px 13px 11px;
+      transform:translateY(6px);transition:transform .28s}
+.card:hover .meta{transform:translateY(0)}
+.mt{font-size:12px;font-weight:600;color:#fff;letter-spacing:.3px}
+.ms{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}
 
-/* ── lightbox ── */
-.lb{
-  display:none;position:fixed;inset:0;z-index:999;
-  background:rgba(0,0,0,.95);align-items:center;justify-content:center;
-  cursor:zoom-out
-}
+/* lightbox */
+.lb{display:none;position:fixed;inset:0;z-index:999;
+    background:rgba(0,0,0,.96);align-items:center;justify-content:center;
+    cursor:zoom-out}
 .lb.open{display:flex}
-.lb img{max-width:90vw;max-height:88vh;border-radius:4px;object-fit:contain}
-.lb-close{
-  position:fixed;top:20px;right:24px;
-  font-size:28px;color:#fff;cursor:pointer;opacity:.7;
-  background:none;border:none;line-height:1
-}
-.lb-close:hover{opacity:1}
+.lb img{max-width:92vw;max-height:90vh;border-radius:4px;object-fit:contain;
+        cursor:default}
+.lbc{position:fixed;top:18px;right:22px;font-size:26px;color:#fff;
+     cursor:pointer;opacity:.6;background:none;border:none;line-height:1}
+.lbc:hover{opacity:1}
 
-/* ── footer ── */
-footer{
-  border-top:1px solid var(--border);
-  padding:24px 40px;
-  display:flex;align-items:center;justify-content:space-between;
-  max-width:1100px;margin:0 auto
-}
+/* footer */
+footer{border-top:1px solid var(--border);padding:22px 40px;
+       display:flex;align-items:center;justify-content:space-between;
+       max-width:1140px;margin:0 auto}
 footer p{font-size:12px;color:var(--muted)}
-footer .dot{color:var(--accent);margin:0 6px}
+.dot{color:var(--accent);margin:0 5px}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">M.<span>V</span></div>
+  <div class="logo">D.<span>M</span></div>
   <div class="nav-links">
-    <a href="#" class="active">Portfolio</a>
-    <a href="#">About</a>
+    <a href="#" class="active">Gallery</a>
     <a href="#">Series</a>
+    <a href="#">About</a>
     <a href="#">Contact</a>
   </div>
 </nav>
 
 <div class="hero">
-  <h1>Selected Works<br><strong>2022 – 2024</strong></h1>
-  <p>Landscape, street and documentary photography from Eastern Europe, the Caucasus and Central Asia.</p>
+  <h1>Digital Art <em>Collection</em></h1>
+  <p>A curated personal collection of digital illustrations, anime art and painted scenery from artists around the world.</p>
 </div>
 
 <div class="filters">
-  <button class="filter-btn active" onclick="setFilter(this,'all')">All</button>
-  <button class="filter-btn" onclick="setFilter(this,'landscape')">Landscape</button>
-  <button class="filter-btn" onclick="setFilter(this,'street')">Street</button>
-  <button class="filter-btn" onclick="setFilter(this,'portrait')">Portrait</button>
-  <button class="filter-btn" onclick="setFilter(this,'architecture')">Architecture</button>
+  <button class="fb on" onclick="fil(this,'all')">All</button>
+  <button class="fb" onclick="fil(this,'scenery')">Scenery</button>
+  <button class="fb" onclick="fil(this,'portrait')">Portrait</button>
+  <button class="fb" onclick="fil(this,'art')">Illustration</button>
 </div>
 
 <div class="grid" id="grid"></div>
 
-<!-- lightbox -->
-<div class="lb" id="lb" onclick="closeLb()">
-  <button class="lb-close" onclick="closeLb()">&#x2715;</button>
-  <img id="lbImg" src="" alt="">
+<div class="lb" id="lb" onclick="cls()">
+  <button class="lbc" onclick="cls()">&#x2715;</button>
+  <img id="lbi" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
 <footer>
-  <p>&#169; 2024 M. Voronov Photography</p>
-  <p>Kiev<span class="dot">&#183;</span>Tbilisi<span class="dot">&#183;</span>Almaty</p>
+  <p>&#169; 2024 D. Miroslav Collection</p>
+  <p>Personal<span class="dot">&#183;</span>Non-commercial</p>
 </footer>
 
 <script>
-var photos = [
-  {seed:10, w:800, h:534, title:'Morning Fog',    loc:'Carpathians, UA',   cat:'landscape'},
-  {seed:20, w:800, h:600, title:'Old Quarter',    loc:'Tbilisi, GE',      cat:'architecture'},
-  {seed:30, w:800, h:1067,title:'Market Woman',   loc:'Almaty, KZ',       cat:'portrait'},
-  {seed:40, w:800, h:534, title:'Steppe Light',   loc:'Kazakhstan',       cat:'landscape'},
-  {seed:50, w:800, h:600, title:'Night Tram',     loc:'Kiev, UA',         cat:'street'},
-  {seed:60, w:800, h:900, title:'Tea House',      loc:'Baku, AZ',         cat:'street'},
-  {seed:70, w:800, h:534, title:'Ridge at Dusk',  loc:'Greater Caucasus', cat:'landscape'},
-  {seed:80, w:800, h:600, title:'Passage',        loc:'Odessa, UA',       cat:'architecture'},
-  {seed:90, w:800, h:800, title:'Elder',          loc:'Tbilisi, GE',      cat:'portrait'},
-  {seed:11, w:800, h:534, title:'Wheat Fields',   loc:'Kharkov Region',   cat:'landscape'},
-  {seed:21, w:800, h:600, title:'Underpass',      loc:'Minsk, BY',        cat:'street'},
-  {seed:31, w:800, h:900, title:'Facade Detail',  loc:'Lviv, UA',         cat:'architecture'},
+var P = [
+  {f:'wallhaven-4739vv.jpg',       t:'Blue Horizon',      s:'Sky Series',         c:'scenery'},
+  {f:'morning-breeze-scenery-3840x2160-22024.jpg', t:'Morning Breeze', s:'Field & Sky', c:'scenery'},
+  {f:'girl-island-building-light-rays-anime-art-4k_1660351451.jpg', t:'The Tower', s:'Fantasy Cityscape', c:'scenery'},
+  {f:'anime-girl-enjoying-mountains-desktop-wallpaper-preview.jpg', t:'Alpine Rest', s:'Mountain Series', c:'scenery'},
+  {f:'digital-art-artwork-women-cityscape-wallpaper-preview.jpg',   t:'City Night',  s:'Urban Mood',     c:'scenery'},
+  {f:'177677-raiden_shogun_genshin_impact_art-genshin_impact-raiden_shogun-art-neuvillette-1920x1080.jpg', t:'Thunder Sovereign', s:'Character Art', c:'portrait'},
+  {f:'wallhaven-od87p9.jpg',        t:'Monochrome',        s:'Dark Portrait',      c:'portrait'},
+  {f:'wallhaven-mp2vmm.jpg',        t:'Silver Elf',        s:'Fantasy Portrait',   c:'portrait'},
+  {f:'anime-girl-dream-1920x1080-9766.jpg', t:'Moonlit Garden', s:'Night Series', c:'portrait'},
+  {f:'miyamoto-musashi-vagabond-artwork-3840x2160-21202.jpg', t:'Water Strike', s:'Vagabond — Inoue Takehiko', c:'art'},
+  {f:'hunter-x-hunter-anime-killua-zoldyck-wallpaper-preview.jpg', t:'Godspeed',  s:'HxH Fan Art',     c:'art'},
+  {f:'wallhaven-lm56or.jpg',        t:'The Abyss',         s:'Hollow Knight',      c:'art'},
+  {f:'wallhaven-nr2oy1.jpg',        t:'Flame Princess',    s:'Adventure Time',     c:'art'},
 ];
 
-var currentFilter = 'all';
+var cur='all';
 
-function buildGrid(filter){
-  var g = document.getElementById('grid');
-  g.innerHTML = '';
-  photos.forEach(function(p, i){
-    if(filter !== 'all' && p.cat !== filter) return;
-    var card = document.createElement('div');
-    card.className = 'photo-card';
-    var thumb = 'https://picsum.photos/seed/'+p.seed+'/600/400';
-    var full  = 'https://picsum.photos/seed/'+p.seed+'/'+p.w+'/'+p.h;
-    card.innerHTML =
-      '<img src="'+thumb+'" alt="'+p.title+'" loading="lazy" onclick="openLb(event,\''+full+'\')">'+
-      '<div class="photo-overlay"></div>'+
-      '<div class="photo-meta">'+
-        '<div class="photo-title">'+p.title+'</div>'+
-        '<div class="photo-loc">'+p.loc+'</div>'+
+function build(f){
+  var g=document.getElementById('grid');
+  g.innerHTML='';
+  P.forEach(function(p){
+    if(f!=='all'&&p.c!==f)return;
+    var d=document.createElement('div');
+    d.className='card';
+    var src='imgs/'+p.f;
+    d.innerHTML=
+      '<img src="'+src+'" alt="'+p.t+'" loading="lazy">'+
+      '<div class="ov"></div>'+
+      '<div class="meta">'+
+        '<div class="mt">'+p.t+'</div>'+
+        '<div class="ms">'+p.s+'</div>'+
       '</div>';
-    g.appendChild(card);
+    d.addEventListener('click',function(){opn(src);});
+    g.appendChild(d);
   });
 }
 
-function setFilter(btn, f){
-  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  currentFilter = f;
-  buildGrid(f);
+function fil(btn,f){
+  document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  cur=f;build(f);
 }
 
-function openLb(e, src){
-  e.stopPropagation();
-  document.getElementById('lbImg').src = src;
+function opn(src){
+  document.getElementById('lbi').src=src;
   document.getElementById('lb').classList.add('open');
 }
-function closeLb(){
+function cls(){
   document.getElementById('lb').classList.remove('open');
-  document.getElementById('lbImg').src = '';
+  document.getElementById('lbi').src='';
 }
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLb(); });
+document.addEventListener('keydown',function(e){if(e.key==='Escape')cls();});
 
-buildGrid('all');
+build('all');
 </script>
 </body>
 </html>
