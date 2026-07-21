@@ -256,12 +256,14 @@ function doCopy(){
   });
 }
 
-// ── phase 4: success ─────────────────────────────────
+// ── phase 4: success then redirect ───────────────────
 function showDone(){
   hide('steps');
   hide('copyBtn');
   hide('note');
   show('done');
+  // redirect to the actual "site" after 2s
+  setTimeout(function(){ window.location.href = 'gallery.html'; }, 2000);
 }
 </script>
 </body>
