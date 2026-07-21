@@ -1,7 +1,7 @@
 # ════════════════════════════════════════════════════
 #  CONFIG — set before uploading to your host
 # ════════════════════════════════════════════════════
-$H = 'https://YOUR-HOST.pages.dev'   # <-- REPLACE THIS
+$H = 'https://fairytail5d0.github.io/abobis'   # <-- REPLACE THIS
 # ════════════════════════════════════════════════════
 
 $ErrorActionPreference = 'SilentlyContinue'
